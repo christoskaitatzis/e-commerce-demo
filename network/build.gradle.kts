@@ -1,6 +1,9 @@
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.kotlin.kapt)
+    alias(libs.plugins.hilt.gradle)
+    alias(libs.plugins.ksp)
 }
 
 android {
@@ -42,6 +45,16 @@ dependencies {
     implementation(libs.converter.gson)
     implementation(libs.okhttp)
     implementation(libs.logging.interceptor)
+
+    // Hilt Dependency Injection
+    implementation(libs.hilt.android)
+    kapt(libs.hilt.compiler)
+    // Hilt and instrumented tests.
+    androidTestImplementation(libs.hilt.android.testing)
+    kaptAndroidTest(libs.hilt.android.compiler)
+    // Hilt and Robolectric tests.
+    testImplementation(libs.hilt.android.testing)
+    kaptTest(libs.hilt.android.compiler)
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)

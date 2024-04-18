@@ -6,7 +6,6 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import androidx.compose.foundation.Image
-
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -33,18 +32,11 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import coil.compose.AsyncImagePainter
 import coil.compose.rememberAsyncImagePainter
 import coil.request.ImageRequest
 import coil.size.Size
-
-import com.demo.ecommerce.data.local.ProductsRepositoryImpl
 import com.demo.ecomm.network.data.model.ProductsItem
-import com.demo.ecomm.network.RetrofitInstance
-
-
 import com.demo.ecommerce.ui.presentation.ProductsViewModel
 import com.demo.ecommerce.ui.theme.ECommerceApplicationTheme
 import dagger.hilt.android.AndroidEntryPoint
@@ -53,14 +45,7 @@ import kotlinx.coroutines.flow.collectLatest
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
 
-    private val viewModel by viewModels<ProductsViewModel>(factoryProducer = {
-        object : ViewModelProvider.Factory {
-            override fun <T : ViewModel> create(modelClass: Class<T>): T {
-                return ProductsViewModel(ProductsRepositoryImpl(RetrofitInstance.api)) as T
-            }
-        }
-    })
-
+    private val viewModel: ProductsViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -145,7 +130,6 @@ fun ProductView(product: ProductsItem) {
             )
         }
 
-
         Spacer(modifier = Modifier.height(8.dp))
 
         Text(
@@ -171,7 +155,6 @@ fun ProductView(product: ProductsItem) {
                 modifier = Modifier.padding(16.dp),
                 fontSize = 13.sp
         )
-
 
         Spacer(modifier = Modifier.height(6.dp))
 
